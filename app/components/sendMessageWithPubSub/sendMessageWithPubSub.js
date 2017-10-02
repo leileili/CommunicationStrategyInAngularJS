@@ -2,17 +2,19 @@ var sendMessageWithPubSubModule = angular.module('sendMessageWithPubSubModule', 
 sendMessageWithPubSubModule.controller('sendMessageWithPubSubController', function($scope,$timeout,CommunicationManager) {
 	$scope.title = "";
 	$scope.message = "";
+
 	CommunicationManager.subscribe("/Nav/Update", function(data) {
 		$timeout(function() {
-			$scope.screen = data.id;
+			$scope.title = data.Label;
 		}, 0)
 	}, this);
-	$scope.setMessage = function(message) {
+	
+	CommunicationManager.subscribe("send msg", function(data) {
 		$timeout(function() {
-			$scope.message = message;
-		})
-	}
-
+			$scope.message = data;
+		}, 0)
+	}, this);
+	
 })
 	
 

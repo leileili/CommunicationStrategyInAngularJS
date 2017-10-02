@@ -27,6 +27,7 @@ comNavigationModule.controller('comNavigationController', function($scope,$timeo
 	    		break;
 	    	case 'sendMessageWithPubSubController': 
 	    		CommunicationManager.publish("/Nav/Update", $scope.sel);
+	    		CommunicationManager.publish("send msg", $scope.msg);
 				break; 	
     	}
     };
@@ -59,8 +60,9 @@ comNavigationModule.controller('comNavigationController', function($scope,$timeo
     	$scope.$emit("topicC", $scope.msg);
 	}
     $scope.sendMessageWithPubSub = function() {
-    	CommunicationManager.setMessage($scope.msg);
-	}
+    	CommunicationManager.publish("/Nav/Update", $scope.sel);
+    	CommunicationManager.publish("send msg", $scope.msg);
+    }
 	
 
 });
