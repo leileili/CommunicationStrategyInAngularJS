@@ -38,7 +38,8 @@ mostPopularListingsApp.service("CommunicationManager",function(){
 				 var sub = topic.subMap[t];
 				 sub.run(data);
 			 }
-	     }
+	     },
+	     
 	 
 	 };
 })

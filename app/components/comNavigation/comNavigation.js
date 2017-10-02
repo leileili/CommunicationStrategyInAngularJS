@@ -2,9 +2,18 @@ var comNavigationModule = angular.module('comNavigationModule', []);
  
 comNavigationModule.controller('comNavigationController', function($scope,$timeout,$rootScope,$http,CommunicationManager, ServiceCommunication) {
     $scope.choices = [{"id":'sendMessageWithRootScopeController', "Label":"Use rootScope"},{"id":'sendMessageWithServiceController', "Label":"User Service"},{"id":'sendMessageWithEmitBroadcastController', "Label":"Use Broadcast"},{"id":'sendMessageWithPubSubController', "Label":"Use Pub Sub"}];
+	
+    $rootScope.$on("topicA",function(event,data){
+    	$rootScope.$broadcast("topicB",data);
+    });
+    
+    $rootScope.$on("topicC",function(event,data){
+    	$rootScope.$broadcast("topicD",data);
+    });
+
     $scope.pickChoices = function(sel){
     	$scope.sel = sel;
-    	//CommunicationManager.publish("/Nav/Update", sel)
+    	    	
     	switch($scope.sel.id)
     	{
 	    	case 'sendMessageWithRootScopeController': 
@@ -14,16 +23,10 @@ comNavigationModule.controller('comNavigationController', function($scope,$timeo
 	    		ServiceCommunication.getScope("sendMessageWithServiceController").title = $scope.sel.Label;
 				break;
 	    	case 'sendMessageWithEmitBroadcastController': 
-	    		$scope.$emit("selectPage", sel)
+	    		$scope.$emit("topicA", $scope.sel);
 	    		break;
 	    	case 'sendMessageWithPubSubController': 
 	    		CommunicationManager.publish("/Nav/Update", $scope.sel);
-	    		CommunicationManager.subscribe("/Nav/Update", function() {
-	    			$timeout(function() {
-	    				$scope.screen = $scope.sel.id;
-	    				$scope.title = $scope.sel.Label;
-	    			}, 0)
-	    		}, this);
 				break; 	
     	}
     };
@@ -32,16 +35,16 @@ comNavigationModule.controller('comNavigationController', function($scope,$timeo
     $scope.sendMsg = function(){
     	switch($scope.sel.id){
 	    	case 'sendMessageWithRootScopeController': 
-	    		$scope.sendMessageWithRootScope()
+	    		$scope.sendMessageWithRootScope();
 	    		break;
 	    	case 'sendMessageWithServiceController': 
-	    		$scope.sendMessageWithService()
+	    		$scope.sendMessageWithService();
     			break;
 	    	case 'sendMessageWithEmitBroadcastController': 
-	    		$scope.$emit("selectPage", $scope.sel)
+	    		$scope.sendMessageWithEmitBroadcast();
     			break;
 	    	case 'sendMessageWithPubSubController': 
-	    		$scope.sendMessageWithPubSub()
+	    		$scope.sendMessageWithPubSub();
     			break; 	
     	}   	
     }
@@ -53,10 +56,10 @@ comNavigationModule.controller('comNavigationController', function($scope,$timeo
     	ServiceCommunication.getScope("sendMessageWithServiceController").setMessage($scope.msg);
 	}
     $scope.sendMessageWithEmitBroadcast = function() {
-    	//$scope.$broadcast("$scope.sel.id", "$scope.sel.Label");
+    	$scope.$emit("topicC", $scope.msg);
 	}
     $scope.sendMessageWithPubSub = function() {
-    	CommunicationManager.publish("/Nav/Update", $scope.sel);
+    	CommunicationManager.setMessage($scope.msg);
 	}
 	
 

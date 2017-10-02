@@ -2,10 +2,15 @@ var sendMessageWithEmitBroadcastModule = angular.module('sendMessageWithEmitBroa
 sendMessageWithEmitBroadcastModule.controller('sendMessageWithEmitBroadcastController', function($scope,$rootScope) {
 	$scope.title = "";
 	$scope.message = "";
-	$scope.$on("selectPage", function(msg) {
-			$scope.message = msg;
-			$scope.title = $rootScope.sel.Label;
-		})	
+	
+	$scope.$on("topicB", function(event,data)
+	{
+			$scope.title = data.Label;
+	})
+	$scope.$on("topicD", function(event,data)
+	{
+			$scope.message = data;
+	})
 })
 
 sendMessageWithEmitBroadcastModule.directive('sendMessageWithEmitBroadcast', function() {
