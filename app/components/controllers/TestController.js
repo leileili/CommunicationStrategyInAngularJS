@@ -13,6 +13,10 @@ angular.module('mostPopularListingsApp.test', ['ngRoute'])
 		controller: 'TestController',
 		templateUrl: 'components/views/testView.html'
 	});
+	$routeprovider.when('https://leileili.github.io/#/test', {
+		controller: 'TestController',
+		templateUrl: 'components/views/testView.html'
+	});
 }])
 
 // Controller definition for this module
