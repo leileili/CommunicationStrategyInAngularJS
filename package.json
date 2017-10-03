@@ -1,9 +1,9 @@
 {
-  "name": "angular-starter",
+  "name": "communication-strategy-in-angular-js",
   "private": true,
   "version": "0.0.1",
-  "description": "Angular.js starter application",
-  "repository": "https://github.com/popularowl/angular-starter",
+  "description": "Communication Strategy In AngularJS",
+  "repository": "https://github.com/leileili/CommunicationStrategyInAngularJS",
   "license": "MIT",
   "devDependencies": {
     "karma": "~0.10",
