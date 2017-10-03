@@ -9,7 +9,7 @@ angular.module('mostPopularListingsApp.test', ['ngRoute'])
 
 // Routing configuration for this module
 .config(['$routeProvider',function($routeprovider){
-	$routeprovider.when('/test', {
+	$routeprovider.when('/app/test', {
 		controller: 'TestController',
 		templateUrl: 'components/views/testView.html'
 	});
