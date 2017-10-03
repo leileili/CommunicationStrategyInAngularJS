@@ -5,7 +5,7 @@ var mostPopularListingsApp = angular.module('mostPopularListingsApp',['ngRoute',
 	'mostPopularListingsApp.home','mostPopularListingsApp.about','mostPopularListingsApp.login','mostPopularListingsApp.test','comNavigationModule','contentContainerModule', 'sendMessageWithEmitBroadcastModule','sendMessageWithPubSubModule','sendMessageWithRootScopeModule','sendMessageWithServiceModule']);
 
 mostPopularListingsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
-	
+	$locationProvider.html5Mode(true);
 	// Declaration of the default route if neither of the controllers
 	// is supporting the request path
 	$routeProvider.otherwise({ redirectTo: '/'});
