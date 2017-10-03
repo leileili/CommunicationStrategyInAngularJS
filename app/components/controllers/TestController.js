@@ -12,9 +12,6 @@ angular.module('mostPopularListingsApp.test', ['ngRoute'])
 	$routeprovider.when('/test', {
 		controller: 'TestController',
 		templateUrl: 'components/views/testView.html'
-	}).when('https://leileili.github.io/#/test', {
-		controller: 'TestController',
-		templateUrl: 'components/views/testView.html'
 	});
 }])
 
