@@ -15,7 +15,7 @@ contentContainerModule.controller('contentContainerController', function($scope,
 			$scope.screen = data.id;
 		}, 0)
 	}, this);
-	
+		
 })
 contentContainerModule.directive('contentContainer', function() {
     return {

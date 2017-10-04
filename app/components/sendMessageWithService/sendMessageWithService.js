@@ -3,6 +3,13 @@ sendMessageWithServiceModule.controller('sendMessageWithServiceController', func
 	$scope.title = "";
 	$scope.message = "";
 	ServiceCommunication.register("sendMessageWithServiceController", $scope);
+	
+	$scope.setMessage = function(data) {
+		$timeout(function() {
+			$scope.title = data;
+		})
+	}
+	
 	$scope.setMessage = function(message) {
 		$timeout(function() {
 			$scope.message = message;

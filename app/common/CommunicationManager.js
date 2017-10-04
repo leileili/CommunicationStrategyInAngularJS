@@ -1,3 +1,5 @@
+
+
 class Sub {
 	constructor(owner, handler) {
 		this.owner = owner;
@@ -16,18 +18,21 @@ class Topic {
 }
 
 
-mostPopularListingsApp.service("CommunicationManager",function(){
-	 
-	 return {		
-		 topicMap:{},
-		 subscribe:function(topicName, handler, owner){
+communicationStrategyApp.service("CommunicationManager",function(){
+	 window.cm = new PubSubManager()
+	 return window.cm
+})
+
+function PubSubManager() {
+	this.topicMap = {}
+	this.subscribe = function(topicName, handler, owner){
 			 var topic = this.topicMap[topicName];
 			 if (topic===undefined) {
 				 topic = this.topicMap[topicName] = new Topic(topicName)
 			 }
 			 topic.subMap[owner.id] = new Sub(owner, handler)
-	     },
-	     publish:function(topicName, data){
+	     }
+	this.publish = function(topicName, data){
 	    	 var topic = this.topicMap[topicName];
 	    	 console.log("Publish:"+topicName);
 			 if (topic===undefined) {
@@ -38,8 +43,6 @@ mostPopularListingsApp.service("CommunicationManager",function(){
 				 var sub = topic.subMap[t];
 				 sub.run(data);
 			 }
-	     },
+	     }
 	     
-	 
-	 };
-})
+}

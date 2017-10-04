@@ -18,9 +18,11 @@ comNavigationModule.controller('comNavigationController', function($scope,$timeo
     	{
 	    	case 'sendMessageWithRootScopeController': 
 	    		$rootScope.scopeMap[sel.id].title = $scope.sel.Label;
+	    		$rootScope.screen = $scope.sel.id;
 	    		break;
 	    	case 'sendMessageWithServiceController': 
 	    		ServiceCommunication.getScope("sendMessageWithServiceController").title = $scope.sel.Label;
+	    		ServiceCommunication.getScope("sendMessageWithServiceController").screen = $scope.sel.id;
 				break;
 	    	case 'sendMessageWithEmitBroadcastController': 
 	    		$scope.$emit("topicA", $scope.sel);

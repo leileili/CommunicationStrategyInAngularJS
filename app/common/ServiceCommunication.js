@@ -1,5 +1,5 @@
 
-mostPopularListingsApp.service("ServiceCommunication",function(){
+communicationStrategyApp.service("ServiceCommunication",function(){
 	 
 	 return {
 		 scopeMap:{},
