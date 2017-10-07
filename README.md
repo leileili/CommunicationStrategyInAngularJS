@@ -44,7 +44,8 @@ Using publish and subscribe, I built a custom pub/sub system where A can directl
 	}
 	
 	
-See details at <a href="https://github.com/leileili/CommunicationStrategyInAngularJS/blob/master/app/common/CommunicationManager.js">CommunicationManager.js</a>	
+See details at <a href="https://github.com/leileili/CommunicationStrategyInAngularJS/blob/master/app/common/CommunicationManager.js">CommunicationManager.js</a>
+<br/><br/>
 **Conclusion**
 
 
