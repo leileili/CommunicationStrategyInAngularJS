@@ -1,6 +1,10 @@
 ***The best practice of communication among scopes, specially one to many communication.
 What is wrong with the way many developers use to communicate among scopes ?***
 
+**Live Demo:**
+
+<a href="https://leileili.github.io/CommunicationStrategyInAngularJS/app">CommunicationStrategyInAngularJS</a>
+
   It is known that there are different techniques of communication among scopes in AngularJS, which one is the best solution , especially for one to many communications? What's wrong with the popular $rootScope, Service or even $Broadcast/$Emit techniques of communications? Let's take a look by going through a sample project:
 
 The four techniques we will going to comparing are:
@@ -46,7 +50,7 @@ Using publish and subscribe, I built a custom pub/sub system where A can directl
 	
 See details at <a href="https://github.com/leileili/CommunicationStrategyInAngularJS/blob/master/app/common/CommunicationManager.js">CommunicationManager.js</a>
 <br/><br/>
-**Conclusion**
+**What is your Conclusion?**
 
 
 	
