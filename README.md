@@ -28,9 +28,23 @@ This technique can have communication parties coupled more loosely than previous
 	
 This last technique is what I am going to introduce and I think it's the best approach within the known methods of communication of components. It is similar to emit/broadcast above but much more efficient.
 	
-Using publish and subscribe, I built a custom pub/sub system where A can directly reach A's other communication parties through a simple map in the middle man, CommunicationManager.
+Using publish and subscribe, I built a custom pub/sub system where A can directly reach A's other communication parties through a simple map in the middle man, CommunicationManager:
+
+	this.publish = function(topicName, data){
+		 var topic = this.topicMap[topicName];
+		 console.log("Publish:"+topicName);
+		 if (topic===undefined) {
+			 console.log("WARNING: there is no subscriber for topic:"+topicName)
+			 return
+		 }
+		 for (var t in topic.subMap) {
+			 var sub = topic.subMap[t];
+			 sub.run(data);
+		 }
+	}
 	
 	
+See details at <a href="https://github.com/leileili/CommunicationStrategyInAngularJS/blob/master/app/common/CommunicationManager.js">CommunicationManager.js</a>	
 **Conclusion**
 
 
