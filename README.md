@@ -1,5 +1,5 @@
-The best practice of communication among scopes, specially one to many communication.
-What is wrong with the way many developers use to communicate among scopes ?
+***The best practice of communication among scopes, specially one to many communication.
+What is wrong with the way many developers use to communicate among scopes ?***
 
   It is known that there are different techniques of communication among scopes in AngularJS, which one is the best solution , especially for one to many communications? What's wrong with the popular $rootScope, Service or even $Broadcast/$Emit techniques of communications? Let's take a look by going through a sample project:
 
@@ -9,22 +9,31 @@ The four techniques we will going to comparing are:
 3. communicate with $Broadcast, $Emit and $On
 4. communicate with Publish and Subscribe
 
-	 communication with $rootScope
+**communication with $rootScope**
 	 
-	In order to let the child or sibling component know what to do once parent or another component send out an event, using $rootScope so that all the other components will see the order; it's easy and fast ; but what if we have more than 10 children/sibling and more than 10 events; this technique will be messy and hard to maintain. What if today we have 10 events and 10 children/sibling, tomorrow the number of orders or children/sibling have changed ? So that the parent/sibling component will need to find where those 10 children/sibling components are and each other component will need to let the parent component know the changes as well. 
+	In order to access to an <b>arbitrary</b> controller/scope, to use $rootScope as a way to find the other party, each controller needs to "register" itself by adding its $scope to a map (say scopeMap) in $rootScope (with controller name as key and $scope as value). Then one party, say A, can obtain the scope of the other party (say B) given B's name as key to the scopeMap. 
+	It is handy and straight forward but A has to know exactly whom (B) to communicate so A and B are tightly coupled.
+	This tightly coupled relation seems no much problem in small and simple projects but it is hard to manage in big and complicate projects. One use case is where you need a one to many communication situation: you need to hard code A to B...Z in order to access them and next day your boss may tell you to change to XX ...ZZZ...The key problem is that A knows other parties.
+
+**communication with Service**
 	
-	communication with Service
+	Similar to $rootScope above, a service can be used to do the same: have a scopeMap and have all the parties "register" initially and then inject the service to all involve parties so that A can use the scopeMap of service to find B...Z. Again, A knows all its "friends" and A may need to update its "contact list" frequently during heavily development and maintenance. 
 	
-	If we create a communication management Service which has a register, unregister, getScope functions, then the component who receive event can register its scope and the component to send event can use getScope to get the data. This is a technique better than using $rootScope because in this way, the parent component doesn't need to change if the children components have changes. But the disadvantage of the components having to know each other when sending and receiving events is still there.
+**communication with $broadcast, $emit and $on**
 	
-	communication with $broadcast, $emit and $on
+	This technique can have communication parties coupled more loosely than previous two techniques. In our case above, A first emits a message up to the $rootScope and then the $rootScope "passes" the message to other parties like B by $broadcast and next B (C..Z) listen to the message with "on". In this way, A has no idea about who A is sending the message to. And B...Z also have not idea about where the message is from: A is "isolated" from others like B.
+	The problem with emit/broadcast is that broadcast is too "heavy" to use as a major mean to communicate.
+
+**communication with Publish and Subscribe**
 	
-	This technique is more popular than previous two techniques. It uses $broadcast to send event down to children components from parent component, use $emit to send event up from children components to parent component, use $on to listen to the event. It is much better for one to many communication, but there is a catch: because the direction is either up or down, there's no direct communication between siblings, the child has to $emit event up to the parent, then the parent $broadcast down to the children; both parent and child need to set up $on to listen to the event.
+	This last technique is what I am going to introduce and I think it's the best approach within the known methods of communication of components. It is similar to emit/broadcast above but much more efficient.
 	
-	communication with Publish and Subscribe
+	Using publish and subscribe, I built a custom pub/sub system where A can directly reach A's other communication parties through a simple map in the middle man, CommunicationManager.
 	
-	This last technique is what I am going to introduce and I think it's the best approach within the known methods of communication of components.
-	Using publish and subscribe, both parent and children components don't know each other's existing and they don't need to know. The parent sends out event by publishing its event topic to a pub-sub-manager controller; the children get the event notice by subscribing to different event topics on the same pub-sub-manager. It's just like job offers publishing v.s. resumes subscribing on job searching web pages. The companies who offer jobs don't need to know who may fit the job, and the job applier doesn't need to know what company might fit her/him. They just publish and subscribe and wait. When there's event come out and the fit is found , the pair of company and applier will get what they need. 
+	
+**Conclusion**
+
+
 	
 	
 	
