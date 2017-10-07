@@ -13,7 +13,7 @@ The four techniques we will going to comparing are:
 	 
 In order to access to an <b>arbitrary</b> controller/scope, to use $rootScope as a way to find the other party, each controller needs to "register" itself by adding its $scope to a map (say scopeMap) in $rootScope (with controller name as key and $scope as value). Then one party, say A, can obtain the scope of the other party (say B) given B's name as key to the scopeMap. <br/><br/>
 It is handy and straight forward but A has to know exactly whom (B) to communicate so A and B are tightly coupled.<br/>
-This tightly coupled relation seems no much problem in small and simple projects but it is hard to manage in big and complicate projects. One use case is where you need a one to many communication situation: you need to hard code A to B...Z in order to access them and next day your boss may tell you to change to XX ...ZZZ...The key problem is that A knows other parties.
+This tightly coupled relation seems no much problem in small and simple projects but it is hard to manage in big and complicate projects.<br/><br/> One use case is where you need a one to many communication situation: you need to hard code A to B...Z in order to access them and next day your boss may tell you to change to XX ...ZZZ...The key problem is that A knows other parties.
 
 **communication with Service**
 	
